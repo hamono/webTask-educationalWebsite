@@ -1,0 +1,30 @@
+.box{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 300px;
+}
+.on{
+  margin-right: 20px;
+  font-size: large;
+  color: rgb(139, 139, 139);
+  text-decoration: none;
+}
+.main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+}
+.item{
+  height: 40px;
+  padding: 10px 20px;
+  margin: 0 -10px;
+  cursor: pointer;
+  background-color: $color-text-light;
+  transition: 0.3s;
+  &:hover {
+    background-color: $color-background-lighter;
+  }
+}
