@@ -1,0 +1,22 @@
+.box{
+  width: 1100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.titel{
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hr{
+  width: 1100px;
+  color: black;
+}
+.one{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}

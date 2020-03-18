@@ -4,6 +4,7 @@ import { All } from './Router';
 
 export default function App() {
 
+
   return <BrowserRouter>
   <Switch>
     <Route path="/home/" component={All} />

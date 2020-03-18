@@ -1,0 +1,48 @@
+.box{
+  width: 250px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border:1px solid rgb(230, 230, 230);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.dir{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.h3{
+  color: black;
+}
+.line1{
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.speed{
+  font-size: 14px;
+  margin-left: 5px;
+}
+.edu{
+  font-size: 14px;
+  margin-left: 40px;
+}
+.tru{
+  font-size: 14px;
+  line-height: 15px;
+  color: skyblue;
+  border: 1px solid skyblue;
+  border-radius: 1px;
+  margin-right: 5px;
+}
+.free{
+  color: red;
+  margin-left: 5px;
+}
+.num{
+  color: black;
+  margin-right: 5px;
+}
