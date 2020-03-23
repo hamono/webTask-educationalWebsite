@@ -11,8 +11,6 @@ export default function App() {
     <Route component={All} />
   </Switch>
   </BrowserRouter>
-
-
 }
 
 
