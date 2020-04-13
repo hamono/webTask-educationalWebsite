@@ -4,12 +4,14 @@ import { Input, Button, Icon, } from "antd";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import Foot from "../Foot";
+import SignContext from "./signInContext";
 
 export default function SignIn() {
   const storage = window.localStorage;
   const [remPassword, setRemPassword] = React.useState(false);
   const [inputValue, setInputValue] = React.useState(null);
   const [password, setPassword] = React.useState('');
+  const {setSuccess}=React.useContext(SignContext);
 
   // 判断是否有账号密码缓存
   React.useEffect(() => {
@@ -65,7 +67,7 @@ export default function SignIn() {
         <a className={style.lostPw} onClick={alertWord}>忘记密码？！</a>
       </div>
       <div className={style.button}>
-        <Button type="primary" className={style.buttonOne} >登 录</Button>
+        <Button type="primary" className={style.buttonOne} onClick={()=>setSuccess(true)}><Link to="/home/">登 录</Link></Button>
         <Button className={style.buttonOne}><Link to="/signOn/">注 册</Link></Button>
       </div>
     </div>
