@@ -1,9 +1,10 @@
 import React from "react";
 import * as style from "./style.scss";
 import { Input, Button, Icon, } from "antd";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Header from "./Header";
 import Foot from "../Foot";
+import usePost from "../useFetch/usePost";
 import SignContext from "./signInContext";
 
 export default function SignIn() {
@@ -11,8 +12,13 @@ export default function SignIn() {
   const [remPassword, setRemPassword] = React.useState(false);
   const [inputValue, setInputValue] = React.useState(null);
   const [password, setPassword] = React.useState('');
-  const {setSuccess}=React.useContext(SignContext);
-
+  const { setSuccess } = React.useContext(SignContext)
+  // 登录请求
+  const { data, revalidate } = usePost({
+    path: 'user/logIn',
+    request: { username: 'hamomo', password: '123456' }
+  });
+  console.log(data)
   // 判断是否有账号密码缓存
   React.useEffect(() => {
     if (storage.getItem("userName") != null && (storage.getItem("remPassword") === 'true')) {
@@ -42,7 +48,7 @@ export default function SignIn() {
     if (remPassword) {
       console.log(remPassword)
       setRemPassword((state) => !state);
-      const valueTrue=!remPassword
+      const valueTrue = !remPassword
       storage.remPassword = valueTrue;
     } else {
       console.log(remPassword)
@@ -51,14 +57,16 @@ export default function SignIn() {
       storage.remPassword = valueTrue;
     }
   }, [remPassword, storage.remPassword]);
-
+  if (data?.success) {
+    return <Redirect to='/' />
+  }
   return <div className={style.box}>
     <Header tag="登 录" />
     <div className={style.main}>
       <span className={style.title}>密码登录</span>
       <Input placeholder="电话号码" size="large" className={style.input} onChange={handleValue} value={inputValue} />
-      {inputValue&&isNaN(inputValue)&&<p className={style.p}>请输入数字</p>}
-      {inputValue&&(inputValue.length > 11)&&<p className={style.p}>请输入正确的电话号码</p>}
+      {inputValue && isNaN(inputValue) && <p className={style.p}>请输入数字</p>}
+      {inputValue && (inputValue.length > 11) && <p className={style.p}>请输入正确的电话号码</p>}
       <Input type="password" placeholder="密码" size="large" className={style.input} onChange={handlePassword} value={password} />
       {password.length < 6 && password.length > 0 && <p className={style.p}>密码长度不足</p>}
       <div className={style.word}>
@@ -67,7 +75,7 @@ export default function SignIn() {
         <a className={style.lostPw} onClick={alertWord}>忘记密码？！</a>
       </div>
       <div className={style.button}>
-        <Button type="primary" className={style.buttonOne} onClick={()=>setSuccess(true)}><Link to="/home/">登 录</Link></Button>
+        <Button type="primary" className={style.buttonOne} onClick={() => [setSuccess(true),revalidate()]}>登 录</Button>
         <Button className={style.buttonOne}><Link to="/signOn/">注 册</Link></Button>
       </div>
     </div>
