@@ -8,10 +8,10 @@ export default function SignLink() {
   const { success,setSuccess } = React.useContext(SignContext)
   const contentTrue = (
     <div className={style.main}>
-      <Link to=""><div className={style.item}>课程表</div></Link>
-      <Link to=""><div className={style.item}>我的老师</div></Link>
-      <Link to=""><div className={style.item}>收藏</div></Link>
-      <Link to="" onClick={()=>setSuccess(false)}><div className={style.item}>退出登录</div></Link>
+      <Link to="/notFind/"><div className={style.item}>课程表</div></Link>
+      <Link to="/notFind/"><div className={style.item}>我的老师</div></Link>
+      <Link to="/notFind/"><div className={style.item}>收藏</div></Link>
+      <Link to="/notFind/" onClick={()=>setSuccess(false)}><div className={style.item}>退出登录</div></Link>
     </div>
   )
   const contentFalse = (
@@ -19,7 +19,7 @@ export default function SignLink() {
   )
   if (success) {
     return <div className={style.box}>
-      <Link to="" className={style.on}>哈默默</Link>
+      <Link to="" className={style.on}>欢迎您！</Link>
       <Popover content={contentTrue}>
         <Avatar size="large" icon="user" />
       </Popover>

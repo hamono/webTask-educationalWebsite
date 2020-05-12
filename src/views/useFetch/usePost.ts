@@ -5,18 +5,20 @@ import { useCallback, useState } from 'react';
 // post request ,If you want to use "post", please export this instead of using the above ,this is true
 async function fetcher(path: string, request: string) {
   const myInit = {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8'
-    },
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
     body: request,
     method: 'post'
   };
   const response = isDev
     ? await fetch(`/mock/${path}/post.json`)
-    : await fetch(`/mock/${path}/post.json`, myInit);
+    : await fetch(`${path}`, myInit);
+  console.log(myInit);
   return response.json();
 }
-export default function usePost(Request: { path: string; request: {} }) {
+export default function usePost(Request: { path: string; request: object }) {
+  console.log(Request.request);
   const [suppress, setSuppress] = useState(true);
   const swr = useSWR(
     suppress ? null : [Request.path, JSON.stringify(Request.request)],
