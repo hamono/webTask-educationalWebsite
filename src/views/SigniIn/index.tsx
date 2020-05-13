@@ -6,13 +6,18 @@ import Header from "../comonent/Header";
 import Foot from "../Foot";
 import usePost from "../useFetch/usePost";
 import SignContext from "./signInContext";
+import IsSignOn from "../SignOn/isSignOn";
+import IsSignIn from "./isSignIn";
 
 export default function SignIn() {
   const storage = window.localStorage;
   const [remPassword, setRemPassword] = React.useState(false);
   const [inputValue, setInputValue] = React.useState(null);
   const [passwords, setPasswords] = React.useState('');
-  const { setSuccess } = React.useContext(SignContext)
+  const { setSuccess } = React.useContext(SignContext);
+  const [display, setDisplay] = React.useState(false);
+  const { isSignOn, setIsSignOn } = React.useContext(IsSignOn);
+  const { setIsSignIn } = React.useContext(IsSignIn);
   // 登录请求
   const { data, revalidate } = usePost({
     path: 'user/logIn',
@@ -27,8 +32,11 @@ export default function SignIn() {
       setRemPassword(storage.getItem("remPassword") === 'true')
     } else {
       setInputValue(storage.userName);
-    }
-  }, [storage])
+    };
+    setTimeout(() => {
+      setIsSignOn(false)
+    }, 2000)
+  }, [setIsSignOn, storage])
   // 忘记密码的提示
   const alertWord = React.useCallback(() => {
     alert("还找不回来");
@@ -57,12 +65,23 @@ export default function SignIn() {
       storage.remPassword = valueTrue;
     }
   }, [remPassword, storage.remPassword]);
+  // 确定是否提示
+  const handleDisplay = React.useCallback(() => {
+    setDisplay(true);
+    setTimeout(() => {
+      setDisplay(false);
+    }, 2000)
+  }, [])
   if (data?.success) {
-    return <Redirect to='/'><Alert message={data.massage} type="success" showIcon /></Redirect>
+    setSuccess(true);
+    setIsSignIn(true);
+    return <Redirect to='/' />
   }
   return <div className={style.box}>
     <Header tag="登 录" />
     <div className={style.main}>
+      {data && display && <Alert className={style.alert} message={data?.massege} type="error" showIcon />}
+      {isSignOn && <Alert className={style.alert} message='注册成功，请登录' type="success" showIcon />}
       <span className={style.title}>密码登录</span>
       <Input placeholder="电话号码" size="large" className={style.input} onChange={handleValue} value={inputValue} />
       {inputValue && isNaN(inputValue) && <p className={style.p}>请输入数字</p>}
@@ -75,7 +94,7 @@ export default function SignIn() {
         <a className={style.lostPw} onClick={alertWord}>忘记密码？！</a>
       </div>
       <div className={style.button}>
-        <Button type="primary" className={style.buttonOne} onClick={() => [setSuccess(true),revalidate()]}>登 录</Button>
+        <Button type="primary" className={style.buttonOne} onClick={() => [revalidate(), handleDisplay()]}>登 录</Button>
         <Button className={style.buttonOne}><Link to="/signOn/">注 册</Link></Button>
       </div>
     </div>

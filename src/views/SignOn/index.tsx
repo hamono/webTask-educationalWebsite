@@ -5,6 +5,7 @@ import { Input, Select, Button, Alert } from "antd";
 import { Link, Redirect } from "react-router-dom";
 import Foot from "../Foot";
 import usePost from "../useFetch/usePost";
+import IsSignOn from "./isSignOn";
 
 const InputGroup = Input.Group;
 const { Option } = Select;
@@ -13,6 +14,8 @@ export default function SignOn() {
   const [usernames, setUsername] = React.useState('');
   const [passwords, setPassword] = React.useState('');
   const [phoneNumbers, serPhoneNumber] = React.useState(null)
+  const { setIsSignOn } = React.useContext(IsSignOn);
+  const [display, setDisplay] = React.useState(false);
   const handleUsername = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value)
   }, []);
@@ -25,14 +28,23 @@ export default function SignOn() {
 
   const { data, revalidate } = usePost({
     path: 'user/logOn',
-    request: { username: usernames, password: passwords, phoneNumber:phoneNumbers }
+    request: { username: usernames, password: passwords, phoneNumber: phoneNumbers }
   });
+  console.log(data?.success)
+  const handleDisplay = React.useCallback(() => {
+    setDisplay(true);
+    setTimeout(() => {
+      setDisplay(false);
+    }, 2000)
+  }, [])
   if (data?.success) {
-    return <Redirect to='/signIn/' ><Alert message={data.massage} type="success" showIcon /></Redirect>
+    setIsSignOn(true);
+    return <Redirect to='/signIn/' />
   }
   return <div className={style.box}>
     <Header tag="注 册" />
     <div className={style.main}>
+      {display && <Alert className={style.alert} message={data?.massege} type="error" showIcon />}
       <Input placeholder="昵称" size="large" className={style.input} value={usernames} onChange={handleUsername} />
       <Input type='password' placeholder="密码 ( 6~16个字符组成，区分大小写 ) " size="large" className={style.input} value={passwords} onChange={handlePassword} />
       {passwords.length < 6 && passwords.length > 0 && <p className={style.p}>密码长度不足</p>}
@@ -47,7 +59,7 @@ export default function SignOn() {
       {isNaN(phoneNumbers) && <p className={style.p}>请输入数字</p>}
       {phoneNumbers && (phoneNumbers.length > 11) && <p className={style.p}>请输入正确的电话号码</p>}
       <div className={style.description} >我们没有需要遵守的协议。</div>
-      <Button style={{ width: '100%', marginTop: 10, height: 40 }} onClick={revalidate}>注册</Button>
+      <Button style={{ width: '100%', marginTop: 10, height: 40 }} onClick={() => [revalidate(), handleDisplay()]}>注册</Button>
       <div className={style.link} ><Link to="/signIn/" className={style.link} >已有账号？直接登录</Link></div>
     </div>
     <Foot />
