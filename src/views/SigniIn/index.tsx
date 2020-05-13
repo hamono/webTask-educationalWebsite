@@ -51,17 +51,20 @@ export default function SignIn() {
     setPasswords(e.target.value)
     storage.password = passwords;
   }, [passwords, storage.password])
+  // 
+  const handleBlur = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    storage.userName = inputValue;
+    storage.password = passwords;
+  }, [inputValue, passwords, storage.password, storage.userName])
   // 记住密码勾选
   const handleCheck = React.useCallback(() => {
     if (remPassword) {
-      console.log(remPassword)
       setRemPassword((state) => !state);
       const valueTrue = !remPassword
       storage.remPassword = valueTrue;
     } else {
-      console.log(remPassword)
       setRemPassword(true);
-      const valueTrue = !remPassword
+      const valueTrue = !remPassword;
       storage.remPassword = valueTrue;
     }
   }, [remPassword, storage.remPassword]);
@@ -83,10 +86,10 @@ export default function SignIn() {
       {data && display && <Alert className={style.alert} message={data?.massege} type="error" showIcon />}
       {isSignOn && <Alert className={style.alert} message='注册成功，请登录' type="success" showIcon />}
       <span className={style.title}>密码登录</span>
-      <Input placeholder="电话号码" size="large" className={style.input} onChange={handleValue} value={inputValue} />
+      <Input placeholder="电话号码" size="large" className={style.input} onChange={handleValue} value={inputValue} onBlur={handleBlur} />
       {inputValue && isNaN(inputValue) && <p className={style.p}>请输入数字</p>}
       {inputValue && (inputValue.length > 11) && <p className={style.p}>请输入正确的电话号码</p>}
-      <Input type="password" placeholder="密码" size="large" className={style.input} onChange={handlePassword} value={passwords} />
+      <Input type="password" placeholder="密码" size="large" className={style.input} onChange={handlePassword} value={passwords} onBlur={handleBlur} />
       {passwords.length < 6 && passwords.length > 0 && <p className={style.p}>密码长度不足</p>}
       <div className={style.word}>
         <div className={style.rememberPassword}>
