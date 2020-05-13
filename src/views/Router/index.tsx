@@ -6,6 +6,7 @@ import Foot from "../Foot";
 import SignOn from "../SignOn";
 import SignIn from "../SigniIn";
 import NotFound from "../NotFound";
+import PlayPage from "../PlayPage";
 
 export function all() {
   return <div>
@@ -33,3 +34,11 @@ export function notFound() {
     <NotFound />
   </div>
 }
+
+export function playPage() {
+  return <div>
+    <PlayPage />
+    <Foot />
+  </div>
+}
+

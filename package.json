@@ -18,7 +18,8 @@
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.3.1",
     "swr": "^0.1.18",
-    "video-player": "https://github.com/hamono/video-player.git"
+    "video-player": "https://github.com/hamono/video-player.git",
+    "web-router": "https://github.com/wu-yu-xuan/web-router.git#v0.1.0"
   },
   "scripts": {
     "predeploy": "yarn build",

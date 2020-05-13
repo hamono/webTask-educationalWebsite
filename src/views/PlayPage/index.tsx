@@ -1,7 +1,7 @@
 import React from "react";
 import * as style from './style.scss';
-// import { Video } from 'video-player'
 import Header from "../Header";
+import Video from "./Video";
 
 export default function PlayPage(){
   return <div className={style.box}>
@@ -17,6 +17,6 @@ export default function PlayPage(){
         9999次播放 · 9999弹幕
       </div>
     </div>
-      <video src='http://www.hamomo.top/videos/小女孩.mp4'  />
+    <Video src='' size={1070} />
   </div>
 }
