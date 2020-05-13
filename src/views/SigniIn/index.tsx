@@ -1,8 +1,8 @@
 import React from "react";
 import * as style from "./style.scss";
-import { Input, Button, Icon, } from "antd";
+import { Input, Button, Icon, Alert, } from "antd";
 import { Link, Redirect } from "react-router-dom";
-import Header from "./Header";
+import Header from "../comonent/Header";
 import Foot from "../Foot";
 import usePost from "../useFetch/usePost";
 import SignContext from "./signInContext";
@@ -58,7 +58,7 @@ export default function SignIn() {
     }
   }, [remPassword, storage.remPassword]);
   if (data?.success) {
-    return <Redirect to='/' />
+    return <Redirect to='/'><Alert message={data.massage} type="success" showIcon /></Redirect>
   }
   return <div className={style.box}>
     <Header tag="登 录" />

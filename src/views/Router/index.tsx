@@ -5,6 +5,7 @@ import Body from "../Body";
 import Foot from "../Foot";
 import SignOn from "../SignOn";
 import SignIn from "../SigniIn";
+import NotFound from "../NotFound";
 
 export function all() {
   return <div>
@@ -15,14 +16,20 @@ export function all() {
   </div>
 }
 
-export function signIn(){
+export function signIn() {
   return <div>
-  <SignIn />
+    <SignIn />
   </div>
 }
 
-export function signOn(){
+export function signOn() {
   return <div>
-  <SignOn />
+    <SignOn />
+  </div>
+}
+
+export function notFound() {
+  return <div>
+    <NotFound />
   </div>
 }

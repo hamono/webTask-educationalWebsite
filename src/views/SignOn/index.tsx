@@ -1,7 +1,7 @@
 import React from "react";
 import * as style from "./style.scss";
-import Header from "../SigniIn/Header";
-import { Input, Select, Button } from "antd";
+import Header from "../comonent/Header";
+import { Input, Select, Button, Alert } from "antd";
 import { Link, Redirect } from "react-router-dom";
 import Foot from "../Foot";
 import usePost from "../useFetch/usePost";
@@ -28,7 +28,7 @@ export default function SignOn() {
     request: { username: usernames, password: passwords, phoneNumber:phoneNumbers }
   });
   if (data?.success) {
-    return <Redirect to='/signIn/' />
+    return <Redirect to='/signIn/' ><Alert message={data.massage} type="success" showIcon /></Redirect>
   }
   return <div className={style.box}>
     <Header tag="注 册" />
