@@ -5,7 +5,7 @@ import img from "./img1.png";
 
 export default function Upcontent() {
   return <div className={style.box}>
-    <Link to="/playPage/" ><img src={img} width="250px" height="150px" /></Link>
+    <Link to="/playPage/" className={style.img} ><img src={img} width="250px" height="150px" /></Link>
     <div className={style.dir}>
       <Link to="/playPage/" ><h3 className={style.h3}>大神老师，在线指导</h3></Link>
       <div className={style.line1}>

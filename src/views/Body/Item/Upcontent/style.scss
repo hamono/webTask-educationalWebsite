@@ -7,6 +7,17 @@
   border:1px solid rgb(230, 230, 230);
   border-radius: 3px;
   overflow: hidden;
+  :hover img{
+    transform: scale(1.5) translate(-16% ,5%);
+  }
+}
+.img{
+  width: 250px;
+  height: 150px;
+  overflow: hidden;
+  img{
+    transition: 0.3s;
+  }
 }
 .dir{
   display: flex;

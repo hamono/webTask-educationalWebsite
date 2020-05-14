@@ -16,7 +16,7 @@ export default function PlayPage(){
       <div className={style.dir}>
         9999次播放 · 9999弹幕
       </div>
+      <Video src='' size={1100} />
     </div>
-    <Video src='' size={1070} />
   </div>
 }

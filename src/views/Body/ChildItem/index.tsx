@@ -26,7 +26,7 @@ export default function ChildItem(props: {
       </div>
       <ul className={style.ul}>
         {props.list.map((v: {}, i: number) =>
-          <Link to="" key={i} onClick={handleClick} >
+          <Link to={link} key={i} onClick={handleClick} >
             <li className={style.li}>
               <div className={style.div} />{v}
             </li>

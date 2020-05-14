@@ -11,7 +11,7 @@ export default function SignLink() {
       <Link to="/notFind/"><div className={style.item}>课程表</div></Link>
       <Link to="/notFind/"><div className={style.item}>我的老师</div></Link>
       <Link to="/notFind/"><div className={style.item}>收藏</div></Link>
-      <Link to="/notFind/" onClick={()=>setSuccess(false)}><div className={style.item}>退出登录</div></Link>
+      <Link to="" onClick={()=>setSuccess(false)}><div className={style.item}>退出登录</div></Link>
     </div>
   )
   const contentFalse = (
