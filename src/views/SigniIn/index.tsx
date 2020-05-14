@@ -18,12 +18,14 @@ export default function SignIn() {
   const [display, setDisplay] = React.useState(false);
   const { isSignOn, setIsSignOn } = React.useContext(IsSignOn);
   const { setIsSignIn } = React.useContext(IsSignIn);
+  const a=1;
   // 登录请求
+
   const { data, revalidate } = usePost({
     path: 'user/logIn',
     request: { username: inputValue, password: passwords }
   });
-  console.log(data)
+  console.log(a)
   // 判断是否有账号密码缓存
   React.useEffect(() => {
     if (storage.getItem("userName") != null && (storage.getItem("remPassword") === 'true')) {
@@ -44,15 +46,13 @@ export default function SignIn() {
   // 记住用户名
   const handleValue = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
-    storage.userName = inputValue;
-  }, [inputValue, storage.userName])
+  }, [])
   // 记住密码
   const handlePassword = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswords(e.target.value)
-    storage.password = passwords;
-  }, [passwords, storage.password])
-  // 
-  const handleBlur = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  }, [])
+  // 记住用户名和密码
+  const handleBlur = React.useCallback(() => {
     storage.userName = inputValue;
     storage.password = passwords;
   }, [inputValue, passwords, storage.password, storage.userName])
@@ -97,7 +97,7 @@ export default function SignIn() {
         <a className={style.lostPw} onClick={alertWord}>忘记密码？！</a>
       </div>
       <div className={style.button}>
-        <Button type="primary" className={style.buttonOne} onClick={() => [revalidate(), handleDisplay()]}>登 录</Button>
+        <Button type="primary" className={style.buttonOne} onClick={() => [ revalidate(), handleDisplay()]}>登 录</Button>
         <Button className={style.buttonOne}><Link to="/signOn/">注 册</Link></Button>
       </div>
     </div>
