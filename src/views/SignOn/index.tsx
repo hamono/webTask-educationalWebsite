@@ -1,11 +1,12 @@
 import React from "react";
 import * as style from "./style.scss";
 import Header from "../comonent/Header";
-import { Input, Select, Button, Alert } from "antd";
+import { Input, Select, Button} from "antd";
 import { Link, Redirect } from "react-router-dom";
 import Foot from "../Foot";
 import usePost from "../useFetch/usePost";
 import IsSignOn from "./isSignOn";
+import Loading from "../comonent/SignLoading";
 
 const InputGroup = Input.Group;
 const { Option } = Select;
@@ -27,16 +28,21 @@ export default function SignOn() {
   }, []);
 
   const { data, revalidate } = usePost({
-    path: 'user/logOn',
+    path: 'user/logOn1',
     request: { username: usernames, password: passwords, phoneNumber: phoneNumbers }
   });
   console.log(data?.success)
   const handleDisplay = React.useCallback(() => {
     setDisplay(true);
-    setTimeout(() => {
-      setDisplay(false);
-    }, 2000)
-  }, [])
+  }, []);
+
+  React.useEffect(()=>{
+    if (!(typeof (data?.success) === 'undefined')) {
+      setTimeout(() => {
+        setDisplay(false);
+      }, 2000)
+    }
+  })
   if (data?.success) {
     setIsSignOn(true);
     return <Redirect to='/signIn/' />
@@ -44,7 +50,7 @@ export default function SignOn() {
   return <div className={style.box}>
     <Header tag="注 册" />
     <div className={style.main}>
-      {display && <Alert className={style.alert} message={data?.massege} type="error" showIcon />}
+    <Loading data={data} display={display} />
       <Input placeholder="昵称" size="large" className={style.input} value={usernames} onChange={handleUsername} />
       <Input type='password' placeholder="密码 ( 6~16个字符组成，区分大小写 ) " size="large" className={style.input} value={passwords} onChange={handlePassword} />
       {passwords.length < 6 && passwords.length > 0 && <p className={style.p}>密码长度不足</p>}

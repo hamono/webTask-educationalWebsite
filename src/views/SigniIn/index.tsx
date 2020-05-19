@@ -8,6 +8,7 @@ import usePost from "../useFetch/usePost";
 import SignContext from "./signInContext";
 import IsSignOn from "../SignOn/isSignOn";
 import IsSignIn from "./isSignIn";
+import Loading from "../comonent/SignLoading";
 
 export default function SignIn() {
   const storage = window.localStorage;
@@ -18,7 +19,7 @@ export default function SignIn() {
   const [display, setDisplay] = React.useState(false);
   const { isSignOn, setIsSignOn } = React.useContext(IsSignOn);
   const { setIsSignIn } = React.useContext(IsSignIn);
-  const a=1;
+  const a = 1;
   // 登录请求
 
   const { data, revalidate } = usePost({
@@ -38,7 +39,7 @@ export default function SignIn() {
     setTimeout(() => {
       setIsSignOn(false)
     }, 2000)
-  }, [setIsSignOn, storage])
+  }, [setIsSignOn, storage]);
   // 忘记密码的提示
   const alertWord = React.useCallback(() => {
     alert("还找不回来");
@@ -68,13 +69,20 @@ export default function SignIn() {
       storage.remPassword = valueTrue;
     }
   }, [remPassword, storage.remPassword]);
+
   // 确定是否提示
   const handleDisplay = React.useCallback(() => {
     setDisplay(true);
+  }, [])
+
+React.useEffect(()=>{
+  if (!(typeof (data?.success) === 'undefined')) {
     setTimeout(() => {
       setDisplay(false);
     }, 2000)
-  }, [])
+  }
+})
+
   if (data?.success) {
     setSuccess(true);
     setIsSignIn(true);
@@ -83,7 +91,7 @@ export default function SignIn() {
   return <div className={style.box}>
     <Header tag="登 录" />
     <div className={style.main}>
-      {data && display && <Alert className={style.alert} message={data?.massege} type="error" showIcon />}
+      <Loading data={data} display={display} />
       {isSignOn && <Alert className={style.alert} message='注册成功，请登录' type="success" showIcon />}
       <span className={style.title}>密码登录</span>
       <Input placeholder="电话号码" size="large" className={style.input} onChange={handleValue} value={inputValue} onBlur={handleBlur} />
@@ -97,7 +105,7 @@ export default function SignIn() {
         <a className={style.lostPw} onClick={alertWord}>忘记密码？！</a>
       </div>
       <div className={style.button}>
-        <Button type="primary" className={style.buttonOne} onClick={() => [ revalidate(), handleDisplay()]}>登 录</Button>
+        <Button type="primary" className={style.buttonOne} onClick={() => [revalidate(), handleDisplay()]}>登 录</Button>
         <Button className={style.buttonOne}><Link to="/signOn/">注 册</Link></Button>
       </div>
     </div>
