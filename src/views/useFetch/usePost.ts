@@ -15,12 +15,12 @@ async function fetcher(path: string, request: string) {
   console.log(myInit);
   return response.json();
 }
-export default function usePost(Request: { path: string; request: object }) {
+export default function usePost(parmer: { path: string; request: object }) {
   const [data, setData] = React.useState(null);
   const [suppress, setSuppress] = React.useState(true);
   const parser = suppress
     ? null
-    : [Request.path, JSON.stringify(Request.request)];
+    : [parmer.path, JSON.stringify(parmer.request)];
   if(!suppress){
     fetcher(parser[0], parser[1]).then(res => setData(res));
     setSuppress(true);
