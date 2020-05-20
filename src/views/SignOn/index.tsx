@@ -28,7 +28,7 @@ export default function SignOn() {
   }, []);
 
   const { data, revalidate } = usePost({
-    path: 'user/logOn1',
+    path: 'user/logOn',
     request: { username: usernames, password: passwords, phoneNumber: phoneNumbers }
   });
   console.log(data?.success)

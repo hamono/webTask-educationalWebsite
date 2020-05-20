@@ -19,14 +19,12 @@ export default function SignIn() {
   const [display, setDisplay] = React.useState(false);
   const { isSignOn, setIsSignOn } = React.useContext(IsSignOn);
   const { setIsSignIn } = React.useContext(IsSignIn);
-  const a = 1;
-  // 登录请求
 
+  // 登录请求
   const { data, revalidate } = usePost({
     path: 'user/logIn',
     request: { username: inputValue, password: passwords }
   });
-  console.log(a)
   // 判断是否有账号密码缓存
   React.useEffect(() => {
     if (storage.getItem("userName") != null && (storage.getItem("remPassword") === 'true')) {
