@@ -31,7 +31,6 @@ export default function SignOn() {
     path: 'user/logOn',
     request: { username: usernames, password: passwords, phoneNumber: phoneNumbers }
   });
-  console.log(data?.success)
   const handleDisplay = React.useCallback(() => {
     setDisplay(true);
   }, []);

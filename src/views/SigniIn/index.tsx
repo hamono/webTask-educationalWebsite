@@ -68,7 +68,7 @@ export default function SignIn() {
     }
   }, [remPassword, storage.remPassword]);
 
-  // 确定是否提示
+  // 控制是否提示
   const handleDisplay = React.useCallback(() => {
     setDisplay(true);
   }, [])

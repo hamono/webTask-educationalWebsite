@@ -14,7 +14,6 @@ export default function useDrop(
       e.preventDefault();
       const video = e.dataTransfer;
       const temp = isVideo(video.files[0].name);
-      console.log(support);
       if (temp) {
         const URL = window.URL || window.webkitURL;
         setPlay(URL.createObjectURL(video.files[0]));

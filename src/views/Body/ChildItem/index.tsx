@@ -15,7 +15,6 @@ export default function ChildItem(props: {
   const handleClick = React.useCallback(() => {
     setSignIn(false)
   }, [])
-  console.log(signIn)
   return <div className={style.box}>
     <h1>{props.item}</h1>
     <div className={style.main}>

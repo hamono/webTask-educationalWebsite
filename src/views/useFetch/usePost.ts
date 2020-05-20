@@ -12,7 +12,6 @@ async function fetcher(path: string, request: string) {
   const response = isDev
     ? await fetch(`/mock/${path}/post.json`)
     : await fetch(`${path}`, myInit);
-  console.log(myInit);
   return response.json();
 }
 export default function usePost(parmer: { path: string; request: object }) {
